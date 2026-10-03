@@ -19,6 +19,7 @@ type Gesture = {
   originOffset: Point;
   startCenter: Point;
   startDistance: number;
+  originScale: number;
 };
 
 export type ZoomableImageHandle = {
@@ -130,7 +131,12 @@ export default function ZoomableImage({
           ? { x: (first.x + second.x) / 2, y: (first.y + second.y) / 2 }
           : first,
       startDistance: points.length >= 2 ? distanceBetween(first, second) : 0,
+      originScale: scale,
     };
+
+    if (points.length >= 2 && scale <= MIN_SCALE) {
+      movedRef.current = true;
+    }
   };
 
   const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -140,7 +146,10 @@ export default function ZoomableImage({
     const point = { x: event.clientX, y: event.clientY };
     pointersRef.current.set(event.pointerId, point);
 
-    if (Math.abs(point.x - startPointRef.current.x) > DRAG_THRESHOLD) {
+    if (
+      Math.abs(point.x - startPointRef.current.x) > DRAG_THRESHOLD ||
+      Math.abs(point.y - startPointRef.current.y) > DRAG_THRESHOLD
+    ) {
       movedRef.current = true;
     }
 
@@ -148,26 +157,25 @@ export default function ZoomableImage({
     const [first, second] = points;
 
     if (points.length >= 2) {
-      const center = { x: (first.x + second.x) / 2, y: (first.y + second.y) / 2 };
-      const ratio =
-        gesture.startDistance > 0
-          ? distanceBetween(first, second) / gesture.startDistance
-          : 1;
-      const nextScale = clamp(scale * ratio, MIN_SCALE, MAX_SCALE);
+        const center = { x: (first.x + second.x) / 2, y: (first.y + second.y) / 2 };
+        const currentDistance = distanceBetween(first, second);
+        const delta = (currentDistance - gesture.startDistance) * 0.0025;
+        const nextScale = clamp(gesture.originScale + delta, MIN_SCALE, MAX_SCALE);
 
-      applyScale(
-        nextScale,
-        clampOffset(
-          {
-            x: gesture.originOffset.x + (center.x - gesture.startCenter.x),
-            y: gesture.originOffset.y + (center.y - gesture.startCenter.y),
-          },
-          nextScale
-        )
-      );
+        applyScale(
+          nextScale,
+          clampOffset(
+            {
+              x: gesture.originOffset.x + (center.x - gesture.startCenter.x),
+              y: gesture.originOffset.y + (center.y - gesture.startCenter.y),
+            },
+            nextScale
+          )
+        );
+        movedRef.current = true;
 
-      return;
-    }
+        return;
+      }
 
     if (scale <= MIN_SCALE) return;
 
@@ -235,7 +243,7 @@ export default function ZoomableImage({
         src={src}
         alt={alt}
         draggable={false}
-        className="h-full w-auto max-w-full object-contain"
+        className="h-full w-auto max-w-full object-contain transition-transform duration-150 ease-out"
         style={{
           transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
           cursor: scale > MIN_SCALE ? "grab" : "zoom-in",
