@@ -99,7 +99,7 @@ export default function Projects({ t }: Props) {
         <h2 className="text-2xl font-semibold mb-6">{t("projects.heading")}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {projects.map((p) => (
-            <ProjectCard key={p.title} project={p} t={t} />
+            <ProjectCard key={p.title} project={p} />
           ))}
         </div>
       </div>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, LoaderCircle, X } from "lucide-react";
+import { useTranslations } from "@/i18n/useTranslations";
 import type { ProjectScreenshot } from "@/types/project";
 
 type GalleryLabels = {
@@ -79,19 +80,26 @@ function GallerySlide({
 type Props = {
   title: string;
   screenshots: ProjectScreenshot[];
-  labels: GalleryLabels;
   onClose: () => void;
 };
 
 export default function GalleryModal({
   title,
   screenshots,
-  labels,
   onClose,
 }: Props) {
   const [index, setIndex] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const slidesRef = useRef<(HTMLElement | null)[]>([]);
+
+  const t = useTranslations();
+  const labels: GalleryLabels = {
+    close: t("gallery.close"),
+    previous: t("gallery.previous"),
+    next: t("gallery.next"),
+    loading: t("gallery.loading"),
+    error: t("gallery.error"),
+  };
 
   const total = screenshots.length;
 

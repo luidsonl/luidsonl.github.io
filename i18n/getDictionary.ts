@@ -24,8 +24,16 @@ export type TranslationFunction = (
   params?: Record<string, string | number>,
 ) => string;
 
-function getValue(obj: any, path: string): string {
-  return path.split(".").reduce((acc, part) => acc?.[part], obj) || path;
+function getValue(dictionary: object, path: string): string {
+  const value = path.split(".").reduce<unknown>(
+    (accumulator, part) =>
+      typeof accumulator === "object" && accumulator !== null
+        ? (accumulator as Record<string, unknown>)[part]
+        : undefined,
+    dictionary
+  );
+
+  return typeof value === "string" && value ? value : path;
 }
 
 export default function getDictionary(locale: Locale): TranslationFunction {

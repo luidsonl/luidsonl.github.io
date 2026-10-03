@@ -1,14 +1,12 @@
 import Badge from "../atoms/Badge";
 import ProjectGallery from "./ProjectGallery";
 import type { Project } from "@/types/project";
-import { TranslationFunction } from "@/types/translations";
 
 type Props = {
   project: Project;
-  t: TranslationFunction;
 };
 
-export default function ProjectCard({ project, t }: Props) {
+export default function ProjectCard({ project }: Props) {
   return (
     <article className="border border-slate-200 dark:border-slate-700 rounded-md p-4 hover:shadow-sm transition bg-white dark:bg-slate-900/40">
       <h3 className="text-lg font-medium mb-2">{project.title}</h3>
@@ -44,14 +42,6 @@ export default function ProjectCard({ project, t }: Props) {
         <ProjectGallery
           title={project.title}
           screenshots={project.screenshots ?? []}
-          labels={{
-            trigger: t("gallery.viewScreenshots"),
-            close: t("gallery.close"),
-            previous: t("gallery.previous"),
-            next: t("gallery.next"),
-            loading: t("gallery.loading"),
-            error: t("gallery.error"),
-          }}
         />
       </div>
     </article>
