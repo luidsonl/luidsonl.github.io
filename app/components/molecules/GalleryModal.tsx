@@ -53,12 +53,12 @@ function GallerySlide({
             aria-label={loadingLabel}
             className="absolute inset-0 flex items-center justify-center"
           >
-            <LoaderCircle className="h-8 w-8 animate-spin text-slate-400" />
+            <LoaderCircle className="h-8 w-8 animate-spin text-slate-500 dark:text-slate-400" />
           </span>
         )}
 
         {status === "error" ? (
-          <span className="absolute inset-0 flex items-center justify-center text-sm text-slate-400">
+          <span className="absolute inset-0 flex items-center justify-center text-sm text-slate-500 dark:text-slate-400">
             {errorLabel}
           </span>
         ) : (
@@ -77,7 +77,7 @@ function GallerySlide({
       </button>
 
       {screenshot.caption && (
-        <figcaption className="shrink-0 text-center text-sm text-slate-300">
+        <figcaption className="shrink-0 text-center text-sm text-slate-700 dark:text-slate-300">
           {screenshot.caption}
         </figcaption>
       )}
@@ -181,13 +181,13 @@ export default function GalleryModal({
         type="button"
         aria-label={labels.close}
         onClick={onClose}
-        className="absolute inset-0 h-full w-full cursor-default bg-slate-950/90 backdrop-blur-sm"
+        className="absolute inset-0 h-full w-full cursor-default bg-white/70 backdrop-blur-sm dark:bg-slate-950/70"
       />
 
       <div className="pointer-events-none relative flex h-full flex-col">
-        <header className="pointer-events-auto flex shrink-0 items-center gap-4 px-4 py-3 text-white">
+        <header className="pointer-events-auto flex shrink-0 items-center gap-4 px-4 py-3 text-slate-900 dark:text-white">
           <h2 className="min-w-0 flex-1 truncate text-sm font-medium">{title}</h2>
-          <span className="shrink-0 text-xs tabular-nums text-slate-300">
+          <span className="shrink-0 text-xs tabular-nums text-slate-600 dark:text-slate-300">
             {index + 1} / {total}
           </span>
           <button
@@ -195,7 +195,7 @@ export default function GalleryModal({
             aria-label={labels.close}
             onClick={onClose}
             autoFocus
-            className="shrink-0 rounded-md p-2 text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+            className="shrink-0 rounded-md p-2 text-slate-700 transition-colors hover:bg-slate-900/10 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
           >
             <X className="h-5 w-5" />
           </button>
@@ -228,7 +228,7 @@ export default function GalleryModal({
               type="button"
               aria-label={labels.previous}
               onClick={() => goTo(index - 1)}
-              className="shrink-0 rounded-full p-2 text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+              className="shrink-0 rounded-full p-2 text-slate-700 transition-colors hover:bg-slate-900/10 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -242,8 +242,8 @@ export default function GalleryModal({
                     aria-current={position === index}
                     className={`h-2 rounded-full transition-all duration-200 ${
                       position === index
-                        ? "w-6 bg-white"
-                        : "w-2 bg-white/30 hover:bg-white/60"
+                        ? "w-6 bg-slate-900 dark:bg-white"
+                        : "w-2 bg-slate-900/30 hover:bg-slate-900/60 dark:bg-white/30 dark:hover:bg-white/60"
                     }`}
                   />
                 </li>
@@ -254,7 +254,7 @@ export default function GalleryModal({
               type="button"
               aria-label={labels.next}
               onClick={() => goTo(index + 1)}
-              className="shrink-0 rounded-full p-2 text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+              className="shrink-0 rounded-full p-2 text-slate-700 transition-colors hover:bg-slate-900/10 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
