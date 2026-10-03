@@ -9,6 +9,7 @@ const ZOOM_STEP = 1.5;
 const DOUBLE_TAP_DELAY = 300;
 const DRAG_THRESHOLD = 4;
 const TAP_DISTANCE = 8;
+const ZOOM_EXP = 0.5;
 
 type Point = {
   x: number;
@@ -58,6 +59,7 @@ export default function ZoomableImage({
   const startPointRef = useRef<Point>({ x: 0, y: 0 });
   const lastTapRef = useRef(0);
   const movedRef = useRef(false);
+  const isPanningRef = useRef(false);
 
   const clampOffset = useCallback((next: Point, nextScale: number): Point => {
     const container = containerRef.current;
@@ -118,6 +120,7 @@ export default function ZoomableImage({
     const point = { x: event.clientX, y: event.clientY };
 
     movedRef.current = false;
+    isPanningRef.current = false;
     startPointRef.current = point;
     pointersRef.current.set(event.pointerId, point);
 
@@ -157,25 +160,26 @@ export default function ZoomableImage({
     const [first, second] = points;
 
     if (points.length >= 2) {
-        const center = { x: (first.x + second.x) / 2, y: (first.y + second.y) / 2 };
-        const currentDistance = distanceBetween(first, second);
-        const delta = (currentDistance - gesture.startDistance) * 0.0025;
-        const nextScale = clamp(gesture.originScale + delta, MIN_SCALE, MAX_SCALE);
+      const center = { x: (first.x + second.x) / 2, y: (first.y + second.y) / 2 };
+      const currentDistance = distanceBetween(first, second);
+      const ratio = currentDistance / gesture.startDistance;
+      const zoomDelta = (ratio - 1) * ZOOM_EXP;
+      const nextScale = clamp(gesture.originScale * Math.exp(zoomDelta), MIN_SCALE, MAX_SCALE);
 
-        applyScale(
-          nextScale,
-          clampOffset(
-            {
-              x: gesture.originOffset.x + (center.x - gesture.startCenter.x),
-              y: gesture.originOffset.y + (center.y - gesture.startCenter.y),
-            },
-            nextScale
-          )
-        );
-        movedRef.current = true;
+      applyScale(
+        nextScale,
+        clampOffset(
+          {
+            x: gesture.originOffset.x + (center.x - gesture.startCenter.x),
+            y: gesture.originOffset.y + (center.y - gesture.startCenter.y),
+          },
+          nextScale
+        )
+      );
+      movedRef.current = true;
 
-        return;
-      }
+      return;
+    }
 
     if (scale <= MIN_SCALE) return;
 
