@@ -11,7 +11,10 @@
     "previous": "Previous screenshot",
     "next": "Next screenshot",
     "loading": "Loading screenshot",
-    "error": "This image could not be loaded"
+    "error": "This image could not be loaded",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "resetZoom": "Reset image size"
   },
 
   "hero": {

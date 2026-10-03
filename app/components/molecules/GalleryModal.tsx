@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, LoaderCircle, X } from "lucide-react";
+import ImageViewer from "./ImageViewer";
 import { useTranslations } from "@/i18n/useTranslations";
 import type { ProjectScreenshot } from "@/types/project";
 
@@ -20,6 +21,7 @@ type SlideProps = {
   position: number;
   loadingLabel: string;
   errorLabel: string;
+  onOpen: () => void;
   slideRef: (element: HTMLElement | null) => void;
 };
 
@@ -29,6 +31,7 @@ function GallerySlide({
   position,
   loadingLabel,
   errorLabel,
+  onOpen,
   slideRef,
 }: SlideProps) {
   const [status, setStatus] = useState<"loading" | "loaded" | "error">("loading");
@@ -36,9 +39,14 @@ function GallerySlide({
   return (
     <figure
       ref={slideRef}
-      className="flex w-[86vw] max-w-4xl shrink-0 snap-center flex-col items-center gap-3"
+      className="pointer-events-auto flex w-[86vw] max-w-4xl shrink-0 snap-center select-none flex-col items-center gap-3"
     >
-      <div className="relative w-full flex-1">
+      <button
+        type="button"
+        onClick={onOpen}
+        aria-label={`${screenshot.caption ?? title} — ${position + 1}`}
+        className="relative w-full flex-1 cursor-zoom-in"
+      >
         {status === "loading" && (
           <span
             role="status"
@@ -66,7 +74,7 @@ function GallerySlide({
             }`}
           />
         )}
-      </div>
+      </button>
 
       {screenshot.caption && (
         <figcaption className="shrink-0 text-center text-sm text-slate-300">
@@ -89,6 +97,7 @@ export default function GalleryModal({
   onClose,
 }: Props) {
   const [index, setIndex] = useState(0);
+  const [zoomedIndex, setZoomedIndex] = useState<number | null>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const slidesRef = useRef<(HTMLElement | null)[]>([]);
 
@@ -127,6 +136,8 @@ export default function GalleryModal({
   }, []);
 
   useEffect(() => {
+    if (zoomedIndex !== null) return;
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
       if (event.key === "ArrowRight") goTo(index + 1);
@@ -136,7 +147,7 @@ export default function GalleryModal({
     window.addEventListener("keydown", handleKeyDown);
 
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [goTo, index, onClose]);
+  }, [goTo, index, onClose, zoomedIndex]);
 
   const handleScroll = () => {
     const track = trackRef.current;
@@ -173,8 +184,8 @@ export default function GalleryModal({
         className="absolute inset-0 h-full w-full cursor-default bg-slate-950/90 backdrop-blur-sm"
       />
 
-      <div className="relative flex h-full flex-col">
-        <header className="flex shrink-0 items-center gap-4 px-4 py-3 text-white">
+      <div className="pointer-events-none relative flex h-full flex-col">
+        <header className="pointer-events-auto flex shrink-0 items-center gap-4 px-4 py-3 text-white">
           <h2 className="min-w-0 flex-1 truncate text-sm font-medium">{title}</h2>
           <span className="shrink-0 text-xs tabular-nums text-slate-300">
             {index + 1} / {total}
@@ -203,6 +214,7 @@ export default function GalleryModal({
               position={position}
               loadingLabel={labels.loading}
               errorLabel={labels.error}
+              onOpen={() => setZoomedIndex(position)}
               slideRef={(element) => {
                 slidesRef.current[position] = element;
               }}
@@ -211,7 +223,7 @@ export default function GalleryModal({
         </div>
 
         {total > 1 && (
-          <footer className="flex shrink-0 items-center gap-3 px-4 py-4">
+          <footer className="pointer-events-auto flex shrink-0 items-center gap-3 px-4 py-4">
             <button
               type="button"
               aria-label={labels.previous}
@@ -249,6 +261,16 @@ export default function GalleryModal({
           </footer>
         )}
       </div>
+
+      {zoomedIndex !== null && (
+        <ImageViewer
+          src={screenshots[zoomedIndex].src}
+          alt={
+            screenshots[zoomedIndex].caption ?? `${title} (${zoomedIndex + 1})`
+          }
+          onClose={() => setZoomedIndex(null)}
+        />
+      )}
     </div>
   );
 }

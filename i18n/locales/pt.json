@@ -11,7 +11,10 @@
     "previous": "Screenshot anterior",
     "next": "Próximo screenshot",
     "loading": "Carregando screenshot",
-    "error": "Não foi possível carregar esta imagem"
+    "error": "Não foi possível carregar esta imagem",
+    "zoomIn": "Ampliar imagem",
+    "zoomOut": "Reduzir imagem",
+    "resetZoom": "Restaurar tamanho da imagem"
   },
 
   "hero": {
