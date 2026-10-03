@@ -78,6 +78,10 @@
     "wordGuessing": {
       "title": "Jogo de adivinhação de palavras",
       "description": "Jogo semelhante ao wordle que consome https://www.datamuse.com/api/"
+    },
+    "learningProfileAnalysisSystem": {
+      "title": "Sistema de Análise de Perfil de Aprendizado",
+      "description": "Plataforma serverless que personaliza o ensino para estudantes superdotados e com necessidades específicas: coleta respostas por formulários, roda machine learning com scikit-learn e devolve estratégias pedagógicas, com Angular no front, AWS SAM/Lambda na API e DynamoDB single-table."
     }
   },
 

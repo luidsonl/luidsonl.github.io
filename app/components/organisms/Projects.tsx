@@ -12,6 +12,90 @@ const rawImage = (repo: string, path: string) =>
 export default function Projects({ t }: Props) {
   const projects: Project[] = [
     {
+      title: t("projects.learningProfileAnalysisSystem.title"),
+      description: t("projects.learningProfileAnalysisSystem.description"),
+      tech: ["Angular", "AWS SAM", "Lambda", "DynamoDB", "Terraform", "scikit-learn"],
+      github: "https://github.com/luidsonl/learning-profile-analysis-system",
+      screenshots: [
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/00-cadastro-admin-educador.png"),
+          caption: "Cadastro do primeiro educador (vira admin)",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/01-tela-login.png"),
+          caption: "Login",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/19-cadastro-nova-conta-selecao-tipo-conta.png"),
+          caption: "Cadastro de nova conta",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/02-pagina-inicial-admin.png"),
+          caption: "Página inicial do admin",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/03-aprocavao-pendente.png"),
+          caption: "Aprovação pendente",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/04-aprovacao-usuarios.png"),
+          caption: "Aprovação de usuários",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/05-gerenciamento-usuarios.png"),
+          caption: "Gerenciamento de usuários (admin)",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/06-gerenciamento-usuarios-visao-educador.png"),
+          caption: "Gerenciamento de usuários (educador)",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/07-cadastro-estudante-visao-educador.png"),
+          caption: "Cadastro de estudante (educador)",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/08-listagem-estudantes.png"),
+          caption: "Listagem de estudantes",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/09-ficha-estudante.png"),
+          caption: "Ficha do estudante",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/10-gerenciamento-acesso-estudante.png"),
+          caption: "Gerenciamento de acesso",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/11-consentimento-lgpd.png"),
+          caption: "Consentimento LGPD",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/12-selecao-formulario.png"),
+          caption: "Seleção de formulário",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/13-selecao-formulario-vark.png"),
+          caption: "Seleção do formulário VARK",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/14-preenchimento-formulario.png"),
+          caption: "Preenchimento do formulário",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/15-envio-teste-vark.png"),
+          caption: "Envio do teste VARK",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/16-resultados-test-vark.png"),
+          caption: "Resultado com predição do modelo",
+        },
+        {
+          src: rawImage("learning-profile-analysis-system", "docs/img/17-integracao-back-front-devtools-requisicoes-api.png"),
+          caption: "Integração back → front",
+        },
+      ],
+    },
+    {
       title: t("projects.zeroShared.title"),
       description: t("projects.zeroShared.description"),
       tech: ["React", "Vite", "AWS", "Lambda", "DynamoDB", "S3", "Terraform"],
@@ -87,7 +171,7 @@ export default function Projects({ t }: Props) {
     {
       title: t("projects.blog.title"),
       description: t("projects.blog.description"),
-      tech: ["Hugo", "Go", "Tailwind CSS"],
+      tech: ["Hugo", "Tailwind CSS", "Web Components"],
       github: "https://github.com/luidsonl/blog",
       deploy: "https://luidsonl.github.io/blog/",
     }

@@ -80,6 +80,10 @@
     "wordGuessing": {
       "title": "Word Guessing Game",
       "description": "A Wordle-like game that consumes https://www.datamuse.com/api/"
+    },
+    "learningProfileAnalysisSystem": {
+      "title": "Learning Profile Analysis System",
+      "description": "Serverless platform that personalizes teaching for gifted students and students with specific needs: it collects answers through forms, runs machine learning with scikit-learn, and returns teaching strategies, with Angular on the front end, AWS SAM/Lambda for the API, and a DynamoDB single-table design."
     }
   },
 
