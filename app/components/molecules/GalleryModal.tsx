@@ -185,7 +185,7 @@ export default function GalleryModal({
         <div
           ref={trackRef}
           onScroll={handleScroll}
-          className="flex min-h-0 flex-1 snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 md:px-20"
+          className="scrollbar-hide flex min-h-0 flex-1 snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 md:px-20"
         >
           {screenshots.map((screenshot, position) => (
             <GallerySlide
@@ -213,7 +213,7 @@ export default function GalleryModal({
               <ChevronLeft className="h-5 w-5" />
             </button>
 
-            <ul className="flex min-w-0 flex-1 gap-2 overflow-x-auto">
+            <ul className="scrollbar-hide flex min-w-0 flex-1 gap-2 overflow-x-auto">
               {screenshots.map((screenshot, position) => (
                 <li key={screenshot.src} className="shrink-0">
                   <button
