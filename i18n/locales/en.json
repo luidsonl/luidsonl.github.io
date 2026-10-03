@@ -5,6 +5,15 @@
     "getInTouch": "Get in touch"
   },
 
+  "gallery": {
+    "viewScreenshots": "View screenshots",
+    "close": "Close gallery",
+    "previous": "Previous screenshot",
+    "next": "Next screenshot",
+    "loading": "Loading screenshot",
+    "error": "This image could not be loaded"
+  },
+
   "hero": {
     "greeting": "Hello, I'm",
     "name": "Luidson",

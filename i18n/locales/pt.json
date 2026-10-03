@@ -5,6 +5,15 @@
     "getInTouch": "Entrar em contato"
   },
 
+  "gallery": {
+    "viewScreenshots": "Ver screenshots",
+    "close": "Fechar galeria",
+    "previous": "Screenshot anterior",
+    "next": "Próximo screenshot",
+    "loading": "Carregando screenshot",
+    "error": "Não foi possível carregar esta imagem"
+  },
+
   "hero": {
     "greeting": "Olá, me chamo",
     "name": "Luidson",
