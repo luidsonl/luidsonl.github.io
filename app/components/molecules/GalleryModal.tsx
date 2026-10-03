@@ -39,13 +39,13 @@ function GallerySlide({
   return (
     <figure
       ref={slideRef}
-      className="pointer-events-auto flex w-[86vw] max-w-4xl shrink-0 snap-center select-none flex-col items-center gap-3"
+      className="flex w-[86vw] max-w-4xl shrink-0 snap-center select-none flex-col items-center gap-3"
     >
       <button
         type="button"
         onClick={onOpen}
         aria-label={`${screenshot.caption ?? title} — ${position + 1}`}
-        className="relative w-full flex-1 cursor-zoom-in"
+        className="pointer-events-auto relative w-full flex-1 cursor-zoom-in"
       >
         {status === "loading" && (
           <span
@@ -185,7 +185,7 @@ export default function GalleryModal({
       />
 
       <div className="pointer-events-none relative flex h-full flex-col">
-        <header className="pointer-events-auto flex shrink-0 items-center gap-4 px-4 py-3 text-slate-900 dark:text-white">
+        <header className="flex shrink-0 items-center gap-4 px-4 py-3 text-slate-900 dark:text-white">
           <h2 className="min-w-0 flex-1 truncate text-sm font-medium">{title}</h2>
           <span className="shrink-0 text-xs tabular-nums text-slate-600 dark:text-slate-300">
             {index + 1} / {total}
@@ -195,7 +195,7 @@ export default function GalleryModal({
             aria-label={labels.close}
             onClick={onClose}
             autoFocus
-            className="shrink-0 rounded-md p-2 text-slate-700 transition-colors hover:bg-slate-900/10 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
+            className="pointer-events-auto shrink-0 rounded-md p-2 text-slate-700 transition-colors hover:bg-slate-900/10 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
           >
             <X className="h-5 w-5" />
           </button>
@@ -223,17 +223,17 @@ export default function GalleryModal({
         </div>
 
         {total > 1 && (
-          <footer className="pointer-events-auto flex shrink-0 items-center gap-3 px-4 py-4">
+          <footer className="flex shrink-0 items-center gap-3 px-4 py-4">
             <button
               type="button"
               aria-label={labels.previous}
               onClick={() => goTo(index - 1)}
-              className="shrink-0 rounded-full p-2 text-slate-700 transition-colors hover:bg-slate-900/10 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
+              className="pointer-events-auto shrink-0 rounded-full p-2 text-slate-700 transition-colors hover:bg-slate-900/10 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
 
-            <ul className="scrollbar-hide flex min-w-0 flex-1 gap-2 overflow-x-auto">
+            <ul className="pointer-events-auto scrollbar-hide flex min-w-0 flex-1 gap-2 overflow-x-auto">
               {screenshots.map((screenshot, position) => (
                 <li key={screenshot.src} className="shrink-0">
                   <button
@@ -254,7 +254,7 @@ export default function GalleryModal({
               type="button"
               aria-label={labels.next}
               onClick={() => goTo(index + 1)}
-              className="shrink-0 rounded-full p-2 text-slate-700 transition-colors hover:bg-slate-900/10 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
+              className="pointer-events-auto shrink-0 rounded-full p-2 text-slate-700 transition-colors hover:bg-slate-900/10 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
